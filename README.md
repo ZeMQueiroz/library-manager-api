@@ -35,34 +35,44 @@ Follow these steps to set up and run the Library Manager API on your local machi
    ```bash
    git clone https://github.com/ZeMQueiroz/library-manager-api.git
    cd library-manager-api
-
    ```
 
 2. **Set Up Virtual Environment:**
 
+   ```bash
    python -m venv venv
    source venv/bin/activate # On Windows use `venv\Scripts\activate`
+   ```
 
 3. **Install Dependencies:**
 
+   ```bash
    pip install -r requirements.txt
+   ```
 
 4. **Set Up Virtual Environment:**
 
    • Create a .env file in the root of your project to store environment-specific settings, such as API keys for Google Books and other sensitive information.
    • Example .env file:
+
+   ```bash
    SECRET_KEY=your-django-secret-key
    DEBUG=True
    GOOGLE_BOOKS_API_KEY=your-google-books-api-key
+   ```
 
 5. **Run Migrations:**
 
+   ```bash
    python manage.py makemigrations
    python manage.py migrate
+   ```
 
 6. **Run the Server:**
 
+   ```bash
    python manage.py runserver
+   ```
 
 7. **Access the API:**
 
