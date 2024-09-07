@@ -34,7 +34,8 @@ class MediaItem(models.Model):
 class CustomList(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    items = models.ManyToManyField('MediaItem', blank=True)  # Relate to MediaItem
+    items = models.ManyToManyField('MediaItem', blank=True)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='custom_lists', default=1)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -7,7 +7,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
         extra_kwargs = {
-            'cover_url': {'read_only': True},  # Example if cover_url should only be set by external data fetching
+            'cover_url': {'read_only': True},
         }
 
 class MediaItemSerializer(serializers.ModelSerializer):
@@ -16,6 +16,9 @@ class MediaItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CustomListSerializer(serializers.ModelSerializer):
+    items = MediaItemSerializer(many=True, read_only=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+
     class Meta:
         model = CustomList
         fields = '__all__'

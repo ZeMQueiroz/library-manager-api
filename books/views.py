@@ -1,9 +1,9 @@
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
+from rest_framework import filters, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from django.shortcuts import get_object_or_404  # Import this to fix the error
 from .models import MediaItem, Category, CustomList
 from .serializers import MediaItemSerializer, CategorySerializer, CustomListSerializer
 from .utils import fetch_book_info, fetch_anime_info
@@ -54,6 +54,20 @@ class CustomListCreateView(generics.ListCreateAPIView):
 class CustomListDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomList.objects.all()
     serializer_class = CustomListSerializer
+
+class CustomListAddItemView(APIView):
+    def post(self, request, pk):
+        custom_list = get_object_or_404(CustomList, pk=pk)  # Correctly using get_object_or_404
+        item_id = request.data.get('item_id')
+        if not item_id:
+            return Response({'error': 'Item ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            item = MediaItem.objects.get(pk=item_id)
+        except MediaItem.DoesNotExist:
+            return Response({'error': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        custom_list.items.add(item)  # Assuming you have a ManyToMany or ForeignKey relation
+        return Response({'message': 'Item added to the list successfully'}, status=status.HTTP_200_OK)
 
 class RecommendationView(APIView):
     def get(self, request):
