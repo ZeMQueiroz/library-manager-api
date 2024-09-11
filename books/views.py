@@ -8,6 +8,8 @@ from .models import MediaItem, Category, CustomList
 from .serializers import MediaItemSerializer, CategorySerializer, CustomListSerializer
 from .utils import fetch_book_info, fetch_anime_info
 import random
+from rest_framework.pagination import PageNumberPagination
+from .pagination import CustomPageNumberPagination
 
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
@@ -20,6 +22,7 @@ class MediaItemListCreateView(generics.ListCreateAPIView):
     filterset_fields = ['category', 'status']
     search_fields = ['title', 'description']
     ordering_fields = ['title', 'rating', 'progress']
+    pagination_class = CustomPageNumberPagination
 
     def perform_create(self, serializer):
         category = serializer.validated_data.get('category')

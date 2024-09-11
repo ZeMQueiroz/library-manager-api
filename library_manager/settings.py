@@ -127,3 +127,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # External API Keys
 
 GOOGLE_BOOKS_API_KEY = config('GOOGLE_BOOKS_API_KEY', default='')
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'books.pagination.CustomPageNumberPagination',
+    'PAGE_SIZE': 10,
+}
