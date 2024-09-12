@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -68,20 +69,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'library_manager.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('PGDATABASE', default='railway'),
-        'USER': config('PGUSER', default='postgres'),
-        'PASSWORD': config('PGPASSWORD'),
-        'HOST': config('PGHOST', default='postgres.railway.internal'),
-        'PORT': config('PGPORT', default='5432'), 
+if DEBUG:  # Assuming DEBUG is True in local development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('PGDATABASE', default='railway'),
+            'USER': config('PGUSER', default='postgres'),
+            'PASSWORD': config('PGPASSWORD'),
+            'HOST': config('PGHOST', default='autorack.proxy.rlwy.net'),  # Use public host
+            'PORT': config('PGPORT', default='27732'),                   # Use public port
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('PGDATABASE', default='railway'),
+            'USER': config('PGUSER', default='postgres'),
+            'PASSWORD': config('PGPASSWORD'),
+            'HOST': config('PGHOST', default='postgres.railway.internal'),
+            'PORT': config('PGPORT', default='5432'),
+        }
+    }
 
 
 # Password validation
