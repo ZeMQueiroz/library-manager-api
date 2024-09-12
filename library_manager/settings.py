@@ -74,8 +74,12 @@ WSGI_APPLICATION = 'library_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',  # PostgreSQL database engine
+        'NAME': config('PGDATABASE', default='railway'),   # Database name from Railway
+        'USER': config('PGUSER', default='postgres'),      # Database user
+        'PASSWORD': config('PGPASSWORD'),                  # Database password
+        'HOST': config('PGHOST', default='postgres.railway.internal'),  # Database host
+        'PORT': config('PGPORT', default='5432'),          # Database port
     }
 }
 
@@ -132,3 +136,4 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'books.pagination.CustomPageNumberPagination',
     'PAGE_SIZE': 10,
 }
+

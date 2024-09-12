@@ -25,7 +25,7 @@ class MediaItemListCreateView(generics.ListCreateAPIView):
     pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
-        queryset = MediaItem.objects.all()
+        queryset = super().get_queryset()
         print(f"Queryset Count: {queryset.count()}")
         return queryset
 
