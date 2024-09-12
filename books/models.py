@@ -31,6 +31,9 @@ class MediaItem(models.Model):
     def get_absolute_url(self):
         return reverse('mediaitem_detail', args=[str(self.id)])
     
+    class Meta:
+        ordering = ['id']
+    
 class CustomList(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)

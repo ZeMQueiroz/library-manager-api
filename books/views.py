@@ -16,13 +16,18 @@ class CategoryListCreateView(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
 
 class MediaItemListCreateView(generics.ListCreateAPIView):
-    queryset = MediaItem.objects.all()
+    queryset = MediaItem.objects.all().order_by('id')
     serializer_class = MediaItemSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category', 'status']
     search_fields = ['title', 'description']
     ordering_fields = ['title', 'rating', 'progress']
     pagination_class = CustomPageNumberPagination
+
+    def get_queryset(self):
+        queryset = MediaItem.objects.all()
+        print(f"Queryset Count: {queryset.count()}")
+        return queryset
 
     def perform_create(self, serializer):
         category = serializer.validated_data.get('category')
