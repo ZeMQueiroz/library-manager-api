@@ -35,3 +35,4 @@ tqdm==4.66.4
 typing_extensions==4.12.2
 urllib3==2.2.2
 virtualenv==20.25.1
+psycopg2>=2.9

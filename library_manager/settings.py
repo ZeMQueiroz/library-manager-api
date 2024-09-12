@@ -74,12 +74,12 @@ WSGI_APPLICATION = 'library_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # PostgreSQL database engine
-        'NAME': config('PGDATABASE', default='railway'),   # Database name from Railway
-        'USER': config('PGUSER', default='postgres'),      # Database user
-        'PASSWORD': config('PGPASSWORD'),                  # Database password
-        'HOST': config('PGHOST', default='postgres.railway.internal'),  # Database host
-        'PORT': config('PGPORT', default='5432'),          # Database port
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('PGDATABASE', default='railway'),
+        'USER': config('PGUSER', default='postgres'),
+        'PASSWORD': config('PGPASSWORD'),
+        'HOST': config('PGHOST', default='postgres.railway.internal'),
+        'PORT': config('PGPORT', default='5432'), 
     }
 }
 
