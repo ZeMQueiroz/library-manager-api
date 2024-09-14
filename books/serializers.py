@@ -19,7 +19,6 @@ class MediaItemSerializer(serializers.ModelSerializer):
 
 class CustomListSerializer(serializers.ModelSerializer):
     items = MediaItemSerializer(many=True, read_only=True)
-    # Ensure category field is correctly configured in CustomListSerializer as well
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 
     class Meta:

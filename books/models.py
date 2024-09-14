@@ -40,6 +40,7 @@ class CustomList(models.Model):
     items = models.ManyToManyField('MediaItem', blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='custom_lists', default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+    background_image = models.URLField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.name
